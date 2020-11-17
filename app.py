@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import pymongo
 import os
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
 
 load_dotenv()
@@ -11,7 +12,6 @@ app = Flask(__name__)
 DB_NAME = 'my_movies'
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
 
 
 def get_connection():
@@ -48,7 +48,44 @@ def create_movie():
 
     return Response(dumps({
         'status': 'ok',
-        'new_id': insert_result.inserted_id  # get the new ID of the movie from the insert result
+        # get the new ID of the movie from the insert result
+        'new_id': insert_result.inserted_id
+    }), status=200, mimetype="application/json")
+
+
+@app.route('/movie/<movie_id>', methods=['PATCH'])
+def update_movie(movie_id):
+    title = request.json.get('title')
+    plot = request.json.get('plot')
+
+    client = get_connection()
+
+    client[DB_NAME].movies.update_one({
+        '_id': ObjectId(movie_id)
+    }, {
+        "$set": {
+            'title': title,
+            'plot': plot
+        }
+    })
+
+    return Response(dumps({
+        'status': 'ok',
+        'updated_id': movie_id
+    }), status=200, mimetype="application/json")
+
+
+@app.route('/movie/<movie_id>', methods=['DELETE'])
+def delete_movie(movie_id):
+    client = get_connection()
+
+    client[DB_NAME].movies.remove({
+        '_id': ObjectId(movie_id)
+    })
+
+    return Response(dumps({
+        'status': 'ok',
+        'deleted_id': movie_id
     }), status=200, mimetype="application/json")
 
 

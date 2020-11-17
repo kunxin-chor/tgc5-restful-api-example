@@ -1,6 +1,6 @@
 {
    "python.linting.pylintEnabled": false,
-   "python.linting.enabled": false,
+   "python.linting.enabled": true,
    "python.linting.pep8Enabled": false,
    "python.linting.flake8Enabled": false,
    "python.terminal.activateEnvironment": false,
@@ -13,5 +13,7 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/.theia": true,
-   }
+},
+"python.formatting.provider": "autopep8",
+"python.pythonPath": "/home/gitpod/.pyenv/versions/3.7.7/bin/python"
 }
