@@ -3,11 +3,15 @@ from dotenv import load_dotenv
 import pymongo
 import os
 from bson.json_util import dumps
+from flask_cors import CORS, cross_origin
 
 load_dotenv()
 
 app = Flask(__name__)
 DB_NAME = 'sample_mflix'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 
 def get_connection():
@@ -16,11 +20,13 @@ def get_connection():
 
 
 @app.route('/')
+@cross_origin()
 def index():
     return render_template('index.template.html')
 
 
 @app.route('/movies')
+@cross_origin()
 def show_movies():
     client = get_connection()
     movies = client[DB_NAME].movies.find().limit(10)
