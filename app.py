@@ -8,7 +8,7 @@ from flask_cors import CORS, cross_origin
 load_dotenv()
 
 app = Flask(__name__)
-DB_NAME = 'sample_mflix'
+DB_NAME = 'my_movies'
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
