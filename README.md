@@ -8,6 +8,13 @@ GET /movies
 ```
 Return all the movies in the JSON format.
 
+## Display one movie
+```
+GET /movie/<movie_id>
+```
+
+Display the information for one movie
+
 ## Add new movie
 ```
 POST /movie/create
