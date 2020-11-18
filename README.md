@@ -10,7 +10,7 @@ Return all the movies in the JSON format.
 
 ## Add new movie
 ```
-GET /movie/create
+POST /movie/create
 ```
 Create a new movie. Possible fields in the body are:
 
