@@ -33,7 +33,18 @@ def show_movies():
     return dumps(movies)
 
 
+@app.route('/movie/<movie_id>', methods=['GET'])
+@cross_origin()
+def get_detail(movie_id):
+    client = get_connection()
+    movies = client[DB_NAME].movies.find_one({
+        "_id": ObjectId(movie_id)
+    })
+    return dumps(movies)
+
+
 @app.route('/movie/create', methods=["POST"])
+@cross_origin()
 def create_movie():
     # because axios sends the data to Flask with the JSON format,
     # so we use request.json instead of request.form
@@ -54,6 +65,7 @@ def create_movie():
 
 
 @app.route('/movie/<movie_id>', methods=['PATCH'])
+@cross_origin()
 def update_movie(movie_id):
     title = request.json.get('title')
     plot = request.json.get('plot')
@@ -76,6 +88,7 @@ def update_movie(movie_id):
 
 
 @app.route('/movie/<movie_id>', methods=['DELETE'])
+@cross_origin()
 def delete_movie(movie_id):
     client = get_connection()
 
