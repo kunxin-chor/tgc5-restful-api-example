@@ -29,7 +29,7 @@ def index():
 @cross_origin()
 def show_movies():
     client = get_connection()
-    movies = client[DB_NAME].movies.find().limit(10)
+    movies = client[DB_NAME].movies.find()
     return dumps(movies)
 
 
