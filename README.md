@@ -13,7 +13,7 @@ Return all the movies in the JSON format.
 GET /movie/<movie_id>
 ```
 
-Display the information for one movie
+Display the information for one movie. Sample response:
 
 ## Add new movie
 ```

@@ -29,8 +29,16 @@ def index():
 @cross_origin()
 def show_movies():
     client = get_connection()
+    final = []
     movies = client[DB_NAME].movies.find()
-    return dumps(movies)
+    for m in movies:
+        print(m)
+        final.append({
+            'id': str(m["_id"]),
+            'title': m["title"],
+            'plot': m["plot"]
+        })
+    return dumps(final)
 
 
 @app.route('/movie/<movie_id>', methods=['GET'])
